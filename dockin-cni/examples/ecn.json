@@ -1,0 +1,16 @@
+{
+  "cniVersion": "0.2.0",
+  "name": "dockin",
+  "type": "bridge",
+  "bridge": "br1",
+  "isGateway": false,
+  "ipMasq": true,
+  "routes": [
+    { "dst": "192.168.0.0/16", "gw": "192.168.1.1" }
+  ],
+  "dns": {
+    "nameservers" : ["8.8.8.8"],
+    "domain": "example.com",
+    "search": [ "example.com" ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "cniVersion": "0.2.0",
+  "name": "dockin",
+  "type": "bridge",
+  "bridge": "br1",
+  "isGateway": false,
+  "ipMasq": true,
+  "routes": [
+    { "dst": "0.0.0.0/0" }
+  ]
+}

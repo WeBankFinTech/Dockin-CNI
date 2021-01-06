@@ -1,0 +1,21 @@
+{
+    "code": 0,
+    "reqId": "1234",
+    "message": "success",
+    "data": [
+        {
+            "type": "test",
+            "podIp": "192.168.1.2",
+            "subnetMask": "255.255.255.0",
+            "gateway": "192.168.1.1",
+            "ifName": "eth0"
+        },
+        {
+            "type": "dockin",
+            "podIp": "192.168.2.2",
+            "subnetMask": "255.255.255.0",
+            "gateway": "192.168.2.1",
+            "ifName": "net0"
+        }
+    ]
+}

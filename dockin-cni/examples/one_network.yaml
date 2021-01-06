@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: one-network
+  namespace: dockin
+  labels:
+    env: test
+spec:
+  spec:
+  containers:
+    - args:
+      command:
+        - /bin/sh
+        - -c
+        - tail -f /dev/null
+      image: uat.sf.dockerhub.stgwebank/webank/umg-wx:umg-wx_3.2.1_3.tar.gz_img
+      imagePullPolicy: IfNotPresent
+      name: busybox-network
+  nodeName: 10-107-119-75

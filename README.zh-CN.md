@@ -1,6 +1,6 @@
 # **dockin ipam cni**
 
-[English](README.md) | 中文
+[English](readme.md) | 中文
 ## **Dockin cni**
 dockin cni 与资源管理模块（RM）进行交互，共同来管理容器网络，当前支持：
 - 创建单网卡网络

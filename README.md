@@ -1,6 +1,11 @@
-# **dockin ipam cni**
+# Dockin CNI - Dockin Container Network Interface
+
+[![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
 English | [中文](README.zh-CN.md)
+
+**For more Dockin components, please visit [https://github.com/WeBankFinTech/Dockin](https://github.com/WeBankFinTech/Dockin)**
+
 ## **Dockin cni**
 dockin cni used to manager pod network, interact with resource manager(rm), support:
 - create single network

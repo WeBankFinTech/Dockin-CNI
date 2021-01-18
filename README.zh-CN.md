@@ -1,6 +1,11 @@
-# **dockin ipam cni**
+# Dockin CNI - Dockin Container Network Interface
+
+[![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
 [English](readme.md) | 中文
+
+**更多Dockin组件请访问 [https://github.com/WeBankFinTech/Dockin](https://github.com/WeBankFinTech/Dockin)**
+
 ## **Dockin cni**
 dockin cni 与资源管理模块（RM）进行交互，共同来管理容器网络，当前支持：
 - 创建单网卡网络

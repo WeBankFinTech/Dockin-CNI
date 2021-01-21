@@ -7,7 +7,7 @@ English | [中文](README.zh-CN.md)
 **For more Dockin components, please visit [https://github.com/WeBankFinTech/Dockin](https://github.com/WeBankFinTech/Dockin)**
 
 ## **Dockin cni**
-dockin cni used to manager pod network, interact with resource manager(rm), support:
+dockin cni used to manager pod network, interact with resource manager(RM), support:
 - create single network
 - create multiple network
 - only support dockin-ipam ipam plugin
@@ -18,9 +18,15 @@ dockin cni must work with
 - dockin-ipam, used to assign ip
 - bridge, used to manage network
 
-cni configuration
---
-configuration sample
+
+## Quick Start
+
+### 1. cni configuration
+You should put cni config file to `/etc/cni/net.d` (Default config path using by kubelet. If you redirect the config path, put the config to the path that your kubelet using).
+
+The name of config file name can named like `00-dockin-cni.json`.
+
+configuration sample:
 ```
 {
     "cniVersion": "0.2.0",
@@ -30,7 +36,7 @@ configuration sample
     "binDir": "/opt/cni/bin",
     "logFile": "/data/kubernetes/dockin-cni.log",
     "logLevel": "debug",
-    "backend": "http://localhost:8080/rm"
+    "backend": "http://localhost:10002/rmController/getPodMultiNetwork"
 }
 ```
 all the parameters a described as follows:
@@ -41,10 +47,24 @@ all the parameters a described as follows:
 - binDir, the binary execution about bridge
 - logFile, file to store the dockin-cni's log
 - logLevel, log level, support error/info/debug
-- backend, the rm service api address
+- backend, the api address of webhook, here using the api of dockin-RM as the sample.
 
-rm data sample
----
+
+### 2. Network configuration
+
+We need to create network config file as well. 
+
+#### Step1: Using webhook to get network type.
+Firstly, you should have a web server（webhook） to get the pod (multi)network information, and implement an API with `podName` query parameter:
+```
+<IP>:<port>/<URL>?podName=
+```
+
+Here we using Dockin-RM as the sample. You can use `curl` to access RM, for example:
+```
+curl 127.0.0.1:10002/rmController/getPodMultiNetwork?podName=<your_pod_name>
+```
+If there is no error, you will get response like this. You web API must return a struct as below as well.
 ```
 {
     "code": 0,
@@ -81,12 +101,14 @@ in the sample:
     - ifName, the network device name about this network, which will show in ifconfig or ip a
     - master, weather the main network, which will show in kubectl get pods, and this must be single in a pod
     
-network configuration
----
+**What we need to pay attention to is the field `type`. In the sample, there is two types: `test` and `dockin`**
+
+#### Step2: create network config file.
+
 network configuration is the bridge configuration, for more details:
 >https://github.com/containernetworking/plugins/tree/master/plugins/main/bridge
 
-network configuration are json files which stored in binDir set in the cni configuration.
+network configuration are json files which stored in `confDir` set in the cni configuration.
 and will pass to kubelet create network.
 
 ```
@@ -103,7 +125,53 @@ and will pass to kubelet create network.
 - type, only support bridge to manage network
 - bridge, the bridge name about this network, multiple network can assign different bridge name
 
----
+**Now, let's start to create network config.**
+
+- Firstly, create config dir:
+
+You can find the path in the `00-dockin-cni.json`
+```shell
+mkdir -p /etc/cni/dockin/net.d  
+```
+
+- Secondly,create config file:
+
+In the sample as above, we need to create two network config file.
+
+1.create config for type `test`：
+
+```
+touch /etc/cni/dockin/net.d/test.json
+```
+content：
+```JSON
+{
+  "cniVersion": "0.2.0",
+  "name": "test", // type
+  "type": "bridge",
+  "bridge": "br0"
+}
+```
+
+2.create config for type `dockin`：
+
+```
+touch /etc/cni/dockin/net.d/dockin.json
+```
+content：
+```JSON
+{
+  "cniVersion": "0.2.0",
+  "name": "dockin", // type
+  "type": "bridge",
+  "bridge": "br0"
+}
+```
+
+### 3. Put executable binary to `binDir`
+
+You can using `make` to build `dockin-cni` and `dockin-ipam`. Then put them to `binDir` in the `00-dockin-cni.json`. The binDir is `/opt/cni/bin` normally.
+
 ## **Dockin-ipam**: static IP address management plugin
 
 ### Overview

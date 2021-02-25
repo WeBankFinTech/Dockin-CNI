@@ -2,9 +2,13 @@
 
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
-[English](readme.md) | 中文
+[English](README.md) | 中文
+
+Dockin运维管理系统是安全的运维管理服务，优化exec执行性能、支持命令权限管理、支持场景运维编排。
 
 **更多Dockin组件请访问 [https://github.com/WeBankFinTech/Dockin](https://github.com/WeBankFinTech/Dockin)**
+
+![Architecture](docs/images/dockin.png)
 
 ## **Dockin cni**
 dockin cni 与资源管理模块（RM）进行交互，共同来管理容器网络，当前支持：

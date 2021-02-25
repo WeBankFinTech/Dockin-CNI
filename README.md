@@ -1,10 +1,14 @@
 # Dockin CNI - Dockin Container Network Interface
-
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
 English | [中文](README.zh-CN.md)
 
+Dockin operation and maintenance management system is a safe operation and maintenance management service that optimizes exec execution performance and supports command authority management
+
 **For more Dockin components, please visit [https://github.com/WeBankFinTech/Dockin](https://github.com/WeBankFinTech/Dockin)**
+
+![Architecture](docs/images/dockin.png)
+
 
 ## **Dockin cni**
 dockin cni used to manager pod network, interact with resource manager(RM), support:
